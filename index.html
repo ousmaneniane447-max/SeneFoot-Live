@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#071b16">
+<meta name="description" content="SeneFoot Live : calendrier du football, matchs du jour et informations pour les supporters au Sénégal.">
+<title>SeneFoot Live — Football en direct</title>
+<style>
+:root{--bg:#061711;--panel:#0d241b;--panel2:#123326;--line:#244638;--green:#22c77a;--lime:#c2f477;--muted:#a9beb4;--white:#f5fbf7;--red:#ff7777}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#123d2c 0,transparent 36%),var(--bg);color:var(--white);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+a{color:inherit;text-decoration:none}button,input{font:inherit}.wrap{max-width:1120px;margin:auto;padding:0 18px}
+header{position:sticky;top:0;z-index:5;background:#04110ddd;backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{display:flex;align-items:center;gap:10px;font-weight:950;font-size:20px;letter-spacing:-.6px}.ball{width:38px;height:38px;border-radius:13px;background:var(--green);display:grid;place-items:center;color:#062016;font-size:21px}.brand em{font-style:normal;color:var(--lime)}.navlinks{display:flex;gap:22px;color:var(--muted);font-size:14px}.navlinks a:hover{color:var(--lime)}.status{font-size:11px;font-weight:900;color:#b9ffd8;background:#123b2a;border:1px solid #286246;border-radius:99px;padding:8px 11px}
+main{padding:30px 0 60px}.hero{display:grid;grid-template-columns:1.25fr .75fr;gap:18px}.hero-main,.hero-side{border:1px solid var(--line);border-radius:24px;background:linear-gradient(135deg,#123b2a,#0a2118);padding:28px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:1.7px;color:var(--lime);font-weight:900}.hero h1{font-size:clamp(34px,5vw,56px);line-height:1.02;letter-spacing:-1.8px;margin:13px 0}.hero p{color:#c2d5cc;line-height:1.65;max-width:560px}.date-chip{display:inline-flex;gap:8px;align-items:center;background:#092017;border:1px solid #315843;padding:9px 12px;border-radius:99px;font-size:12px;color:#d9eee2}.hero-side{background:linear-gradient(160deg,#153a2b,#0a2018);display:flex;flex-direction:column;justify-content:space-between}.side-top{display:flex;justify-content:space-between;gap:10px;font-size:11px;color:var(--muted);font-weight:800}.featured{display:flex;align-items:center;justify-content:space-around;text-align:center;margin:24px 0}.team{width:38%;font-weight:850;font-size:13px}.crest{width:58px;height:58px;border-radius:18px;background:#214b38;display:grid;place-items:center;margin:0 auto 9px;font-size:27px;border:1px solid #3b6c52}.versus{color:var(--lime);font-size:12px;font-weight:900}.note{border-top:1px solid var(--line);padding-top:13px;color:var(--muted);font-size:12px;line-height:1.55}
+.section{margin-top:34px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:14px;margin-bottom:15px}.section h2{font-size:23px;margin:0;letter-spacing:-.4px}.sub{font-size:13px;color:var(--muted);margin-top:5px}.tools{display:flex;gap:9px;flex-wrap:wrap}.search{background:#0b2118;border:1px solid var(--line);border-radius:12px;padding:10px 12px;color:var(--white);min-width:180px}.search::placeholder{color:#8ca59a}.filters{display:flex;gap:8px;overflow:auto;padding:2px 0 8px}.filter{white-space:nowrap;border:1px solid var(--line);background:#0b2118;color:var(--muted);padding:9px 13px;border-radius:99px;font-size:12px;cursor:pointer}.filter.active{background:var(--green);border-color:var(--green);color:#052016;font-weight:900}
+.summary{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}.summary span{background:#0b2118;border:1px solid var(--line);border-radius:12px;padding:9px 12px;color:var(--muted);font-size:12px}.summary b{color:var(--white);margin-right:4px}
+.match-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.match{background:linear-gradient(160deg,#102b20,#0a2018);border:1px solid var(--line);border-radius:17px;padding:15px}.meta{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:11px;margin-bottom:15px}.competition{font-weight:800;color:#cce6d8}.state{font-weight:900;color:var(--lime)}.teams{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:9px}.club{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:850;min-width:0}.club:last-child{justify-content:flex-end;text-align:right}.crest-sm{width:34px;height:34px;flex:0 0 34px;border-radius:11px;background:#214b38;display:grid;place-items:center}.mid{font-weight:950;color:var(--lime);font-size:14px;white-space:nowrap}.foot{display:flex;justify-content:space-between;gap:8px;border-top:1px solid var(--line);margin-top:14px;padding-top:11px;color:var(--muted);font-size:11px}.empty{display:none;padding:25px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:16px}
+.player{background:#020a06;border:1px solid var(--line);border-radius:20px;overflow:hidden}.screen{aspect-ratio:16/9;display:grid;place-items:center;text-align:center;padding:24px;background:radial-gradient(circle at center,#17432e,#020a06 70%)}.play{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:var(--green);color:#062016;font-size:23px;margin:0 auto 12px}.screen p{max-width:500px;color:var(--muted);font-size:13px;line-height:1.6}.player-info{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;padding:16px 19px}.tag{font-size:10px;color:#f7dfa0;background:#44381b;padding:7px 9px;border-radius:99px;font-weight:900}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.info{background:#0d241b;border:1px solid var(--line);border-radius:16px;padding:18px}.info p,.info li{color:var(--muted);font-size:13px;line-height:1.65}.info ul{padding-left:19px}
+footer{border-top:1px solid var(--line);padding:23px 18px;color:var(--muted);text-align:center;font-size:12px}
+@media(max-width:760px){.navlinks{display:none}.hero{grid-template-columns:1fr}.hero-main,.hero-side{padding:23px}.match-list{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column}.info-grid{grid-template-columns:1fr}.search{width:100%}.tools{width:100%}}
+</style>
+</head>
+<body>
+<header><nav class="nav wrap">
+<a class="brand" href="#"><span class="ball">⚽</span><span>SeneFoot <em>Live</em></span></a>
+<div class="navlinks"><a href="#matches">Matchs</a><a href="#direct">Diffusions</a><a href="#infos">À propos</a></div>
+<span class="status">● FOOTBALL • SÉNÉGAL</span>
+</nav></header>
+<main class="wrap">
+<section class="hero">
+<div class="hero-main">
+<div class="eyebrow">La passion du football, partout</div>
+<h1>Le football<br>en un seul endroit.</h1>
+<p>Retrouve le programme des rencontres, les horaires et les informations des compétitions. Une expérience simple, pensée pour les supporters au Sénégal.</p>
+<div class="date-chip">📅 <span id="todayLabel">Jeudi 19 novembre 2026</span> · Heure de Dakar (GMT)</div>
+</div>
+<aside class="hero-side">
+<div class="side-top"><span>À SUIVRE AU SÉNÉGAL</span><span>PROGRAMME DU JOUR</span></div>
+<div class="featured">
+<div class="team"><div class="crest">🟢</div>La Linguère</div>
+<div><div class="versus">VS</div><div class="mid">16:30</div></div>
+<div class="team"><div class="crest">🟡</div>Teungueth FC</div>
+</div>
+<div class="note">Ligue 1 du Sénégal · Horaire annoncé pour le 19 novembre 2026. Vérifie les éventuelles modifications auprès de l'organisateur.</div>
+</aside>
+</section>
+
+<section class="section" id="matches">
+<div class="section-head"><div><h2>Programme des matchs</h2><div class="sub">Calendrier et scores actualisés · heures de Dakar</div></div>
+<div class="tools"><input id="search" class="search" type="search" placeholder="Rechercher une équipe…"></div></div>
+<div class="filters" aria-label="Filtrer les matchs">
+<button class="filter active" data-filter="Tous">Tous</button>
+<button class="filter" data-filter="Sénégal">Sénégal</button>
+<button class="filter" data-filter="U17">Coupe du monde U17</button>
+<button class="filter" data-filter="Femmes">Ligue des champions féminine</button>
+</div>
+<div class="summary"><span><b id="count">—</b> matchs trouvés</span><span><b id="liveCount">—</b> en direct</span><span><b>GMT</b> fuseau horaire de Dakar</span></div>
+<div class="match-list" id="matchList"><p class="sub" id="loadState">Chargement des rencontres réelles…</p></div>
+<div class="empty" id="empty">Aucun match ne correspond à ta recherche.</div>
+<p class="sub">Les rencontres et scores sont fournis par un service de données football. La disponibilité dépend de la couverture de la compétition et du quota de l’API.</p>
+</section>
+
+<section class="section" id="direct">
+<div class="section-head"><div><h2>Diffusions des matchs</h2><div class="sub">Lecteur réservé aux retransmissions autorisées</div></div></div>
+<div class="player"><div class="screen"><div><div class="play">▶</div><strong>Aucune diffusion officielle configurée</strong><p>Le lecteur sera activé lorsqu'un diffuseur autorisé fournira un lien ou un lecteur intégrable. SeneFoot Live ne diffuse pas de flux non autorisés.</p></div></div><div class="player-info"><div><strong>Lecteur vidéo</strong><div class="sub">En attente d'une source officielle</div></div><span class="tag">NON CONFIGURÉ</span></div></div>
+</section>
+
+<section class="section" id="infos">
+<div class="section-head"><div><h2>À propos de SeneFoot Live</h2><div class="sub">Un site indépendant pour les supporters.</div></div></div>
+<div class="info-grid">
+<div class="info"><strong>Fonctionnalités</strong><ul><li>Programme des rencontres et horaires.</li><li>Recherche par nom d'équipe.</li><li>Filtres par compétition.</li><li>Lecteur prêt à recevoir une diffusion autorisée.</li></ul></div>
+<div class="info"><strong>À savoir</strong><p>Les matchs et scores sont chargés automatiquement. Certaines compétitions peuvent ne pas être couvertes par le fournisseur de données. Aucun résultat n’est inventé.</p></div>
+</div>
+</section>
+</main>
+<footer>© 2026 SeneFoot Live · Football, calendrier et informations · Sénégal</footer>
+<script>
+const buttons=[...document.querySelectorAll('.filter')], search=document.getElementById('search');
+const empty=document.getElementById('empty'), count=document.getElementById('count'), list=document.getElementById('matchList');
+const liveCount=document.getElementById('liveCount'), loadState=document.getElementById('loadState');
+let active='Tous', allMatches=[];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function categoryOf(m){const l=(m.league?.name||'').toLowerCase(); if(l.includes('senegal'))return 'Sénégal'; if(l.includes('u17'))return 'U17'; if(l.includes('women')||l.includes('féminin')||l.includes('femin'))return 'Femmes'; return 'Autres';}
+function render(){const q=search.value.trim().toLocaleLowerCase('fr');const rows=allMatches.filter(m=>{const c=categoryOf(m);const text=[m.home,m.away,m.league?.name].join(' ').toLocaleLowerCase('fr');return (active==='Tous'||c===active)&&(!q||text.includes(q));});
+ list.innerHTML=rows.map(m=>{const live=['1H','2H','HT','ET','BT','P','LIVE'].includes(m.status);const status=live?'EN DIRECT':(m.status==='FT'?'TERMINÉ':(m.status==='NS'?'À VENIR':m.statusText||'PROGRAMMÉ'));const mid=(m.goalsHome!==null&&m.goalsAway!==null)?`${m.goalsHome} – ${m.goalsAway}`:m.time;const d=new Date(m.date);const when=d.toLocaleString('fr-FR',{timeZone:'Africa/Dakar',weekday:'short',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});return `<article class="match" data-category="${esc(categoryOf(m))}"><div class="meta"><span class="competition">${esc(m.league?.name||'Football')}</span><span class="state">${esc(status)}</span></div><div class="teams"><div class="club"><span class="crest-sm">⚽</span>${esc(m.home)}</div><span class="mid">${esc(mid)}</span><div class="club"><span class="crest-sm">⚽</span>${esc(m.away)}</div></div><div class="foot"><span>${esc(when)} · Dakar</span><span>${esc(m.league?.country||'')}</span></div></article>`}).join('');
+ count.textContent=rows.length; liveCount.textContent=allMatches.filter(m=>['1H','2H','HT','ET','BT','P','LIVE'].includes(m.status)).length;empty.style.display=rows.length?'none':'block';}
+buttons.forEach(btn=>btn.addEventListener('click',()=>{buttons.forEach(b=>b.classList.remove('active'));btn.classList.add('active');active=btn.dataset.filter;render()}));search.addEventListener('input',render);
+async function load(){try{const r=await fetch('/.netlify/functions/matches');const data=await r.json();if(!r.ok)throw new Error(data.error||'Service indisponible');allMatches=data.matches||[];if(!allMatches.length)loadState.textContent='Aucun match disponible pour le moment. Réessaie plus tard.';else loadState.remove();render();}catch(e){loadState.textContent='Impossible de charger les matchs pour le moment. Vérifie le déploiement Netlify et la connexion API.';count.textContent='0';liveCount.textContent='0';}}
+load();setInterval(load,60000);
+</script>
+</body>
+</html>
