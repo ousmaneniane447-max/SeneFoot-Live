@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SeneFoot Live - Lecteur vidéo</title>
+<style>
+body{margin:0;background:#07111f;color:white;font-family:Arial,sans-serif;padding:20px}
+main{max-width:700px;margin:auto}
+h1{color:#25d366}
+p{color:#cbd5e1;line-height:1.5}
+video{width:100%;background:#000;border-radius:12px;margin:15px 0}
+input,button{box-sizing:border-box;width:100%;padding:14px;margin:7px 0;border-radius:8px;border:0;font-size:16px}
+button{background:#25d366;color:#07111f;font-weight:bold}
+a{color:#25d366}
+#status{color:#facc15}
+</style>
+</head>
+<body>
+<main>
+<h1>⚽ SeneFoot Live</h1>
+<h2>Lecteur vidéo</h2>
+<p>Colle un lien vidéo MP4 ou HLS (.m3u8) provenant d'une diffusion officielle ou autorisée.</p>
+
+<video id="video" controls playsinline></video>
+
+<input id="url" type="url" placeholder="Colle ici le lien vidéo">
+<button id="play">▶ Lancer la vidéo</button>
+<button id="stop">■ Arrêter</button>
+
+<p id="status">En attente d'un lien vidéo.</p>
+<p>Ce lecteur ne fournit pas les matchs : il lit les liens vidéo accessibles légalement.</p>
+<a href="/">← Retour à l'accueil</a>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script>
+const video=document.getElementById('video');
+const input=document.getElementById('url');
+const status=document.getElementById('status');
+let hls=null;
+
+document.getElementById('play').onclick=()=>{
+ const value=input.value.trim();
+ let url;
+ try{url=new URL(value)}catch(e){
+  status.textContent="Entre un lien vidéo valide.";
+  return;
+ }
+ if(!["https:","http:"].includes(url.protocol)){
+  status.textContent="Le lien doit commencer par HTTPS ou HTTP.";
+  return;
+ }
+ if(hls){hls.destroy();hls=null}
+ video.pause();
+ video.removeAttribute('src');
+ video.load();
+
+ if(url.pathname.toLowerCase().endsWith('.m3u8')){
+  if(video.canPlayType('application/vnd.apple.mpegurl')){
+   video.src=url.href;
+   video.play().catch(()=>{});
+   status.textContent="Flux HLS chargé.";
+  }else if(window.Hls && Hls.isSupported()){
+   hls=new Hls();
+   hls.loadSource(url.href);
+   hls.attachMedia(video);
+   hls.on(Hls.Events.MANIFEST_PARSED,()=>{
+    video.play().catch(()=>{});
+    status.textContent="Flux HLS chargé.";
+   });
+   hls.on(Hls.Events.ERROR,()=>{
+    status.textContent="Impossible de lire ce flux. Vérifie le lien.";
+   });
+  }else{
+   status.textContent="HLS n'est pas pris en charge sur cet appareil.";
+  }
+ }else{
+  video.src=url.href;
+  video.play().then(()=>{
+   status.textContent="Vidéo lancée.";
+  }).catch(()=>{
+   status.textContent="Lecture impossible : vérifie le lien ou son accès.";
+  });
+ }
+};
+
+document.getElementById('stop').onclick=()=>{
+ video.pause();
+ video.removeAttribute('src');
+ video.load();
+ if(hls){hls.destroy();hls=null}
+ status.textContent="Lecture arrêtée.";
+};
+</script>
+</body>
+</html>
